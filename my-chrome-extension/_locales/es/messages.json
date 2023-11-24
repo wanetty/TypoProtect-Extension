@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Revisor de Typosquatting",
+    "description": "El nombre de la extensión"
+  },
+  "extensionDescription": {
+    "message": "Revisa si los dominios visitados están usando typosquatting",
+    "description": "La descripción de la extensión"
+  },
+  "popupTitle": {
+    "message": "Introduce los dominios a revisar",
+    "description": "El título del popup de la extensión"
+  },
+  "optionsTitle": {
+    "message": "Configura tu extensión",
+    "description": "El título de la página de opciones"
+  }
+}

@@ -1,0 +1,23 @@
+# .gitignore para una extensión de Chrome
+
+# Ignora los directorios de node_modules
+node_modules/
+
+# Ignora los archivos de registro
+*.log
+
+# Ignora los archivos de configuración de IDE
+.idea/
+.vscode/
+*.iml
+
+# Ignora los archivos de construcción
+dist/
+build/
+
+# Ignora los archivos de paquetes
+package-lock.json
+yarn.lock
+
+# Ignora los archivos de claves privadas
+*.pem

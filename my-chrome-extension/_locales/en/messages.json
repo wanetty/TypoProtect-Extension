@@ -1,0 +1,18 @@
+{
+  "extensionName": {
+    "message": "Domain Checker",
+    "description": "The name of the extension."
+  },
+  "extensionDescription": {
+    "message": "Checks for typosquatting in visited domains.",
+    "description": "The description of the extension."
+  },
+  "popupTitle": {
+    "message": "Enter domain to check",
+    "description": "Title for the popup."
+  },
+  "optionsTitle": {
+    "message": "Configure your settings",
+    "description": "Title for the options page."
+  }
+}
