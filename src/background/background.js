@@ -1,33 +1,40 @@
 const SIMILARITY_THRESHOLD = 2;
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
-  // El evento onUpdated puede dispararse por varios motivos; nos aseguramos de que haya una URL.
   if (changeInfo.status === 'complete' && tab.url) {
     console.log(`Tab ${tabId} updated with URL: ${tab.url}`);
 
     chrome.storage.sync.get(['trustedDomains'], function(result) {
       if (!result.trustedDomains) {
         console.log('No trusted domains found in storage.');
-        return; // Salir temprano si no hay dominios de confianza almacenados.
+        return;
       }
 
       const trustedDomains = result.trustedDomains;
       console.log("Trusted Domains:", trustedDomains);
 
-      // Verifica si alguna de las URLs de los dominios de confianza se asemeja a la URL actual.
-      const isTyposquatting = trustedDomains.some((trustedDomain) => {
-        const currentDomain = extractHostname(tab.url);
-        const levenshteinDistance = calculateLevenshteinDistance(currentDomain, extractHostname(trustedDomain));
-        const hasDifferentTLD = checkDifferentTLD(tab.url, trustedDomains);
-        console.log("Has different TLD:", hasDifferentTLD);
-        const isInSubdomain = checkTrustedDomainInSubdomain(tab.url, trustedDomains);
-        console.log("Is in subdomain:", isInSubdomain);
-
-        return levenshteinDistance <= SIMILARITY_THRESHOLD || hasDifferentTLD || isInSubdomain;
-      });
-      if (isTyposquatting) {
-        chrome.tabs.sendMessage(tabId, { type: 'danger' });
-        console.log(`Danger message sent to tab ${tabId}`);
-      }
+      const currentDomain = extractHostname(tab.url);
+      const currentDomainWithProtocol = new URL(tab.url).protocol + "//" + new URL(tab.url).host;
+      // Verifica si el dominio completo con el protocolo está en la lista de trustedDomains
+      if (trustedDomains.includes(currentDomainWithProtocol)) {
+        console.log('The domain is trusted. No danger detected.');
+        return;
+      }else{
+        const isTyposquatting = trustedDomains.some(trustedDomain => {
+          const levenshteinDistance = calculateLevenshteinDistance(currentDomain, extractHostname(trustedDomain));
+          console.log("Levenshtein Distance:", levenshteinDistance);
+          const hasDifferentTLD = checkDifferentTLD(tab.url, trustedDomains);
+          console.log("Different TLD:", hasDifferentTLD);
+          const isInSubdomain = checkTrustedDomainInSubdomain(tab.url, trustedDomains);
+          console.log("Subdomain:", isInSubdomain);
+  
+          return (levenshteinDistance <= SIMILARITY_THRESHOLD && levenshteinDistance != 0) || hasDifferentTLD || isInSubdomain;
+        });
+  
+        if (isTyposquatting) {
+          chrome.tabs.sendMessage(tabId, { type: 'danger' });
+          console.log(`Danger message sent to tab ${tabId}`);
+        }
+      }      
     });
   }
 });
@@ -35,8 +42,13 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
 
 
+
+
 function calculateLevenshteinDistance(a, b) {
   const matrix = [];
+  //hay que quitarle los tld a los dominios y solo quedarnos con el dominio principal
+  a = extractDomainWithoutTLD(a);
+  b = extractDomainWithoutTLD(b);
 
   // Inicializar la matriz
   for (let i = 0; i <= b.length; i++) {
