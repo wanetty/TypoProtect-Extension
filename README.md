@@ -1,6 +1,7 @@
 # Typosquatting Protection Extension
 
-![Logo](static/logo.png)
+<p align="center"><img width=250 alt="Logo" src="https://github.com/wanetty/TypoProtect-Extension/blob/main/static/logo.png"></p>
+
 
 Protect yourself from typosquatting attacks with our advanced browser extension. Compatible with all browsers supporting Manifest V3, it ensures you're always on the right track.
 
