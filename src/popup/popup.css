@@ -38,7 +38,7 @@ body {
     color: white;
     cursor: pointer;
     border: none;
-    white-space: nowrap; /* Evita que el texto del botón se envuelva */
+    white-space: nowrap; 
   }
   
   #addButton:hover, #deleteButton:hover {
@@ -48,7 +48,7 @@ body {
   #domainList {
     list-style-type: none;
     padding: 0;
-    margin-top: 10px; /* Añade espacio antes de la lista de dominios */
+    margin-top: 10px;
   }
   
   #domainList li {
@@ -60,7 +60,7 @@ body {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 10px; /* Espacio entre elementos de la lista */
+    margin-bottom: 10px;
   }
   
   #domainList li button {

@@ -21,3 +21,6 @@ yarn.lock
 
 # Ignora los archivos de claves privadas
 *.pem
+
+# Ignora ficheros de MacOS
+.DS_Store

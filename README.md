@@ -1,31 +1,38 @@
-# My Chrome Extension
+# Typosquatting Protection Extension
 
-Esta es una extensión de Chromium diseñada para detectar el typosquatting en los dominios que el usuario visita.
+![Logo](static/logo.png)
 
-## Uso
+Protect yourself from typosquatting attacks with our advanced browser extension. Compatible with all browsers supporting Manifest V3, it ensures you're always on the right track.
 
-1. Instale la extensión en su navegador Chromium.
-2. Haga clic en el ícono de la extensión en la barra de herramientas para abrir el popup.
-3. En el popup, introduzca los dominios que desea revisar.
-4. Navegue por la web como lo haría normalmente. Si visita un dominio que parece estar usando typosquatting, la extensión le alertará.
+## Key Features
 
-## Configuración
+- **Safe Browsing**: Automatically verifies URLs to prevent typosquatting and phishing attempts.
+- **User-Friendly Interface**: Easy-to-use popup for quick settings and status checks.
 
-Puede configurar la extensión a través de la página de opciones. Para acceder a ella, haga clic con el botón derecho en el ícono de la extensión y seleccione "Opciones".
 
-## Desarrollo
+## Core Components
 
-Esta extensión está desarrollada en JavaScript. Los archivos principales son:
+The extension consists of three main parts:
 
-- `src/background.js`: Revisa si se está usando typosquatting en los dominios visitados.
-- `src/content.js`: Se inyecta en cada página web que el usuario visita.
-- `src/popup.js`: Permite al usuario introducir dominios a revisar.
-- `src/options.js`: Permite al usuario configurar la extensión.
+- **Background**: The heart of our extension, located at [src/background/background.js](src/background/background.js), constantly monitors and secures your browsing.
+- **Popup**: Accessible via the [src/popup](src/popup) directory, the popup window offers control and information at your fingertips.
+- **Content Scripts**: The content script is located at [src/content/content.js](src/content/content.js). This script runs in the context of web pages visited by the user.
 
-## Contribuciones
+## Quick Start Guide
 
-Las contribuciones son bienvenidas. Por favor, abra un issue o un pull request si desea contribuir.
+1. Clone this repository.
+2. Load the extension into your browser by pointing it to the cloned repository.
 
-## Licencia
+## Example
 
-Esta extensión está licenciada bajo la licencia MIT.
+![Board](static/board.png)
+
+![Example](static/example.png)
+
+## Contributing
+
+Contributions are welcome! 
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.

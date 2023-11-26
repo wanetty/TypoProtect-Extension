@@ -1,56 +1,48 @@
 const SIMILARITY_THRESHOLD = 2;
+
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete' && tab.url) {
-    console.log(`Tab ${tabId} updated with URL: ${tab.url}`);
-
-    chrome.storage.sync.get(['trustedDomains'], function(result) {
-      if (!result.trustedDomains) {
-        console.log('No trusted domains found in storage.');
+    chrome.storage.sync.get(['trustedDomains'], (result) => {
+      if (!result || !result.trustedDomains) {
         return;
       }
 
       const trustedDomains = result.trustedDomains;
-      console.log("Trusted Domains:", trustedDomains);
 
-      const currentDomain = extractHostname(tab.url);
-      const currentDomainWithProtocol = new URL(tab.url).protocol + "//" + new URL(tab.url).host;
-      // Verifica si el dominio completo con el protocolo está en la lista de trustedDomains
-      if (trustedDomains.includes(currentDomainWithProtocol)) {
-        console.log('The domain is trusted. No danger detected.');
+      let currentDomain;
+      try {
+        currentDomain = new URL(tab.url).hostname;
+      } catch (e) {
         return;
-      }else{
-        const isTyposquatting = trustedDomains.some(trustedDomain => {
-          const levenshteinDistance = calculateLevenshteinDistance(currentDomain, extractHostname(trustedDomain));
-          console.log("Levenshtein Distance:", levenshteinDistance);
-          const hasDifferentTLD = checkDifferentTLD(tab.url, trustedDomains);
-          console.log("Different TLD:", hasDifferentTLD);
-          const isInSubdomain = checkTrustedDomainInSubdomain(tab.url, trustedDomains);
-          console.log("Subdomain:", isInSubdomain);
-  
-          return (levenshteinDistance <= SIMILARITY_THRESHOLD && levenshteinDistance != 0) || hasDifferentTLD || isInSubdomain;
-        });
-  
-        if (isTyposquatting) {
-          chrome.tabs.sendMessage(tabId, { type: 'danger' });
-          console.log(`Danger message sent to tab ${tabId}`);
-        }
-      }      
+      }
+
+      const currentDomainWithProtocol = `${new URL(tab.url).protocol}//${extractMainDomain(currentDomain)}`;
+
+      if (trustedDomains.includes(currentDomainWithProtocol)) {
+        return;
+      }
+
+      const isTyposquatting = trustedDomains.some((trustedDomain) => {
+        const trustedDomainHostname = new URL(trustedDomain).hostname;
+        const levenshteinDistance = calculateLevenshteinDistance(currentDomain, trustedDomainHostname);
+        const hasDifferentTLD = checkDifferentTLD(tab.url, trustedDomains);
+        const isInSubdomain = checkTrustedDomainInSubdomain(tab.url, trustedDomains);
+
+        return (levenshteinDistance <= SIMILARITY_THRESHOLD && levenshteinDistance !== 0) || hasDifferentTLD || isInSubdomain;
+      });
+
+      if (isTyposquatting) {
+        chrome.tabs.sendMessage(tabId, { type: 'danger' });
+      }
     });
   }
 });
 
-
-
-
-
-
 function calculateLevenshteinDistance(a, b) {
-  const matrix = [];
-  //hay que quitarle los tld a los dominios y solo quedarnos con el dominio principal
   a = extractDomainWithoutTLD(a);
   b = extractDomainWithoutTLD(b);
+  const matrix = [];
 
-  // Inicializar la matriz
   for (let i = 0; i <= b.length; i++) {
     matrix[i] = [i];
   }
@@ -59,63 +51,59 @@ function calculateLevenshteinDistance(a, b) {
     matrix[0][j] = j;
   }
 
-  // Calcular la distancia
   for (let i = 1; i <= b.length; i++) {
     for (let j = 1; j <= a.length; j++) {
-      if (b.charAt(i - 1) == a.charAt(j - 1)) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
         matrix[i][j] = matrix[i - 1][j - 1];
       } else {
-        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, // Sustitución
-                               Math.min(matrix[i][j - 1] + 1, // Inserción
-                                        matrix[i - 1][j] + 1)); // Eliminación
+        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
       }
     }
   }
-  console.log(matrix[b.length][a.length]);
+
   return matrix[b.length][a.length];
 }
 
-
-function checkDifferentTLD(url, trustedDomains) {
-  const urlHostname = extractHostname(url);
+function checkDifferentTLD(url, trustedDomains) {  
+  const urlHostname = extractMainDomain(new URL(url).hostname);
+  const urlMainDomain = urlHostname.split('.').slice(0, -1).join('.');
   const urlTLD = getTLD(urlHostname);
-  const urlDomainWithoutTLD = extractDomainWithoutTLD(urlHostname);
-
-  return trustedDomains.some(trustedDomain => {
-    const trustedDomainHostname = extractHostname(trustedDomain);
+  return trustedDomains.some(trustedDomain => {    
+    const trustedDomainHostname = extractMainDomain(new URL(trustedDomain).hostname);
+    const trustedMainDomain = trustedDomainHostname.split('.').slice(0, -1).join('.');
     const trustedDomainTLD = getTLD(trustedDomainHostname);
-    const trustedDomainWithoutTLD = extractDomainWithoutTLD(trustedDomainHostname);
-
-    return urlDomainWithoutTLD === trustedDomainWithoutTLD && urlTLD !== trustedDomainTLD;
+    
+    return urlMainDomain === trustedMainDomain && urlTLD !== trustedDomainTLD;  
   });
+}
+function extractMainDomain(hostname) {  
+  const parts = hostname.split('.');
+  if (parts.length >= 2) {    
+    return parts.slice(-2).join('.');  }
+  return hostname;
 }
 
 function checkTrustedDomainInSubdomain(url, trustedDomains) {
-  const hostname = extractHostname(url);
+  const hostname = new URL(url).hostname;
   const domainParts = extractDomainWithoutTLD(hostname).split('.');
 
-  // Ignora el último elemento en domainParts (el dominio de nivel superior)
   const subdomainParts = domainParts.slice(0, -1);
 
   return trustedDomains.some(trustedDomain => {
-    const trustedHostname = extractHostname(trustedDomain);
+    const trustedHostname = new URL(trustedDomain).hostname;
     const trustedDomainWithoutTLD = extractDomainWithoutTLD(trustedHostname);
 
-    // Comprueba si alguna de las partes del subdominio coincide con el dominio confiable
     return subdomainParts.some(part => part === trustedDomainWithoutTLD);
   });
 }
 
 function extractDomainWithoutTLD(hostname) {
-  let parts = hostname.split('.');
+  const parts = hostname.split('.');
   if (parts.length > 1) {
-    // Elimina el TLD y devuelve el resto del dominio.
     return parts.slice(0, -1).join('.');
   }
   return hostname;
 }
-
-
 
 function getTLD(hostname) {
   const parts = hostname.split('.');
@@ -123,28 +111,9 @@ function getTLD(hostname) {
 }
 
 function extractHostname(url) {
-  let hostname;
-
-  // Encuentra & remueve el protocolo (http, ftp, etc.) y obtiene el hostname
-  if (url.indexOf("//") > -1) {
-      hostname = url.split('/')[2];
-  } else {
-      hostname = url.split('/')[0];
+  try {
+    return new URL(url).hostname;
+  } catch (e) {
+    return '';
   }
-
-  // Encuentra & remueve el puerto y la ruta
-  hostname = hostname.split(':')[0];
-  hostname = hostname.split('?')[0];
-  return hostname;
-}
-
-function extractDomain(hostname) {
-  let parts = hostname.split('.').reverse();
-
-  if (parts.length >= 2) {
-    // Combina las partes para formar el dominio
-    return parts[1] + '.' + parts[0];
-  }
-
-  return hostname;
 }

@@ -1,5 +1,20 @@
 document.getElementById('addButton').addEventListener('click', () => {
-  var domain = document.getElementById('domainInput').value;
+  let domain = document.getElementById('domainInput').value;
+  if (!domain) {
+    return;
+  }
+
+  if (!/^https?:\/\//i.test(domain)) {
+    domain = 'https://' + domain;
+  }
+  let url;
+  try {
+    url = new URL(domain);
+  } catch (e) {
+    return;
+  }
+
+  domain = url.hostname;
   if (!/^https?:\/\//i.test(domain)) {
     domain = 'https://' + domain;
   }
@@ -22,16 +37,16 @@ document.getElementById('deleteButton').addEventListener('click', () => {
 });
 
 function loadDomains() {
-  var domainList = document.getElementById('domainList');
-  domainList.innerHTML = ''; // Limpia la lista antes de volver a cargarla
+  let domainList = document.getElementById('domainList');
+  domainList.innerHTML = '';
 
   chrome.storage.sync.get('trustedDomains', function(data) {
     if (data.trustedDomains) {
       data.trustedDomains.forEach(function(domain, index) {
-        var li = document.createElement('li');
+        let li = document.createElement('li');
         li.textContent = domain;
 
-        var deleteButton = document.createElement('button');
+        let deleteButton = document.createElement('button');
         deleteButton.textContent = 'X'; 
         deleteButton.onclick = function() {
           deleteDomain(index);
@@ -44,13 +59,14 @@ function loadDomains() {
   });
 }
 
+
 function deleteDomain(index) {
   chrome.storage.sync.get('trustedDomains', function(data) {
     var domains = data.trustedDomains;
-    domains.splice(index, 1); // Eliminar el dominio seleccionado
+    domains.splice(index, 1);
 
     chrome.storage.sync.set({'trustedDomains': domains}, function() {
-      loadDomains(); // Recargar la lista
+      loadDomains();
     });
   });
 }
@@ -62,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
       if (result[currentTabId] === 'danger') {
         document.body.style.backgroundColor = 'red';
       } else {
-        document.body.style.backgroundColor = 'white'; // O cualquier otro color predeterminado
+        document.body.style.backgroundColor = 'white';
       }
     });
   });

@@ -1,8 +1,15 @@
 {
   "manifest_version": 3,
   "name": "Typosquatting Protection",
-  "version": "1.0",
+  "description": "Typosquatting Protection",
+  "version": "0.0.0.1",
   "default_locale": "es",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "permissions": [
     "storage",
     "tabs",
