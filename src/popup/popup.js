@@ -30,6 +30,16 @@ document.getElementById('addButton').addEventListener('click', () => {
   });
 });
 
+//Get actual URL when open the extension and put it in the input
+chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+  const currentTabId = tabs[0].id;
+  chrome.tabs.get(currentTabId, function(tab) {
+    const url = new URL(tab.url);
+    document.getElementById('domainInput').value = url.hostname;
+  });
+});
+
+
 document.getElementById('deleteButton').addEventListener('click', () => {
   chrome.storage.sync.set({'trustedDomains': []}, function() {
     loadDomains();

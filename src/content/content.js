@@ -8,8 +8,8 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     banner.style.color = 'white';
     banner.style.textAlign = 'center';
     banner.style.fontSize = '24px';
-    banner.style.zIndex = '1000';
-    banner.style.top = '0'; // Asegúrate de que el banner esté en la parte superior de la ventana
+    banner.style.zIndex = '9999';
+    banner.style.top = '0';
 
     // Añadir el banner cuando el DOM esté completamente cargado
     if (document.readyState === "loading") {

@@ -32,6 +32,7 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
       });
 
       if (isTyposquatting) {
+      
         chrome.tabs.sendMessage(tabId, { type: 'danger' });
       }
     });
