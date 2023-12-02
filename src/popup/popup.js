@@ -94,3 +94,29 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   loadDomains();
 });
+
+document.getElementById('loadButton').addEventListener('click', () => {
+  const predefinedUrls = [
+    'https://www.google.com',
+    'https://www.amazon.com',
+    'https://www.youtube.com',
+    'https://www.facebook.com',
+    'https://www.instagram.com',
+    'https://www.reddit.com',
+    'https://www.tiktok.com',
+    'https://www.wikipedia.org'
+    // Añade aquí más URLs predefinidas si lo necesitas
+  ];
+
+  chrome.storage.sync.get('trustedDomains', function(result) {
+    let domains = result.trustedDomains || [];
+    predefinedUrls.forEach(url => {
+      if (!domains.includes(url)) {
+        domains.push(url);
+      }
+    });
+    chrome.storage.sync.set({'trustedDomains': domains}, function() {
+      loadDomains();
+    });
+  });
+});

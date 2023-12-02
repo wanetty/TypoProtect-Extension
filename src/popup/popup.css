@@ -26,7 +26,7 @@ body {
     border-radius: 4px;
     font-size: 14px;
     flex-grow: 1;
-    margin-right: 10px; /* Asegura espacio entre el input y el botón */
+    margin-right: 10px;
   }
   
   #addButton, #deleteButton {
@@ -39,6 +39,10 @@ body {
     cursor: pointer;
     border: none;
     white-space: nowrap; 
+  }
+  #deleteButton {
+    background-color: #ff0000; 
+    color: white;
   }
   
   #addButton:hover, #deleteButton:hover {
@@ -76,3 +80,11 @@ body {
     background-color: #e04040;
   }
   
+  #loadButton {
+    font-size: 0.8em;
+    padding: 5px 10px;
+    font-weight: 300; 
+    background-color: #FFBF00;
+    color: black;
+    border: none;
+  }

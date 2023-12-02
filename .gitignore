@@ -24,3 +24,11 @@ yarn.lock
 
 # Ignora ficheros de MacOS
 .DS_Store
+
+#Ignora ficheros de construcción de Chrome
+*.crx
+*.pem
+*.zip
+
+
+
