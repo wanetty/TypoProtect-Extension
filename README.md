@@ -19,10 +19,11 @@ The extension consists of three main parts:
 - **Popup**: Accessible via the [src/popup](src/popup) directory, the popup window offers control and information at your fingertips.
 - **Content Scripts**: The content script is located at [src/content/content.js](src/content/content.js). This script runs in the context of web pages visited by the user.
 
-## Quick Start Guide
+## Install
 
-1. Clone this repository.
-2. Load the extension into your browser by pointing it to the cloned repository.
+### Chrome:
+
+Follow this [link](https://chromewebstore.google.com/detail/typosquatting-protection/ofhhhkhomfdapknngpeefhpipfcgmkee?hl=es) and press "INSTALL"
 
 ## Example
 
