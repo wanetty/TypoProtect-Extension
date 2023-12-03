@@ -28,6 +28,8 @@ The extension consists of three main parts:
 
 ![Board](static/board.png)
 
+![Settings Menu](static/settings.png)
+
 ![Example](static/example.png)
 
 ## Contributing

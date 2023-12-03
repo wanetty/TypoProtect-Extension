@@ -95,6 +95,16 @@ document.addEventListener('DOMContentLoaded', function() {
   loadDomains();
 });
 
+
+
+document.getElementById('settingsButton').addEventListener('click', function() {
+  if (document.getElementById('settingsMenu').style.width === '250px') {
+    document.getElementById('settingsMenu').style.width = '0px';
+  } else{
+    document.getElementById('settingsMenu').style.width = '250px';
+  }
+});
+
 document.getElementById('loadButton').addEventListener('click', () => {
   const predefinedUrls = [
     'https://www.google.com',
@@ -105,7 +115,6 @@ document.getElementById('loadButton').addEventListener('click', () => {
     'https://www.reddit.com',
     'https://www.tiktok.com',
     'https://www.wikipedia.org'
-    // Añade aquí más URLs predefinidas si lo necesitas
   ];
 
   chrome.storage.sync.get('trustedDomains', function(result) {
@@ -120,3 +129,69 @@ document.getElementById('loadButton').addEventListener('click', () => {
     });
   });
 });
+
+document.getElementById('importButton').addEventListener('click', function() {
+  var input = document.createElement('input');
+  input.type = 'file';
+
+  input.addEventListener('change', function() {
+    var file = this.files[0];
+    var reader = new FileReader();
+
+    reader.addEventListener('load', function() {
+      var contents = this.result;
+
+      var domains = contents.split('\n');
+
+      chrome.storage.sync.get('trustedDomains', function(result) {
+        let domainsList = result.trustedDomains || [];
+        domains.forEach(domain => {
+          if (!domainsList.includes(domain)) {
+            domainsList.push(domain);
+          }
+        });
+        chrome.storage.sync.set({'trustedDomains': domainsList}, function() {
+          loadDomains();
+        });
+      });
+    });
+
+    // Leer el archivo como texto
+    reader.readAsText(file);
+  });
+
+  // Simular un click en el input para abrir el diálogo de selección de archivo
+  input.click();
+});
+
+document.getElementById('exportButton').addEventListener('click', function() {
+  // Obtener los dominios de la memoria
+  chrome.storage.sync.get('trustedDomains', function(result) {
+    let domains = result.trustedDomains || [];
+
+    // Crear un blob con los dominios
+    var blob = new Blob([domains.join('\n')], {type: 'text/plain'});
+
+    // Crear una URL para el blob
+    var url = URL.createObjectURL(blob);
+
+    // Crear un enlace para descargar el archivo
+    var link = document.createElement('a');
+    link.href = url;
+    link.download = 'domains.txt';
+
+    // Agregar el enlace al documento y hacer clic en él
+    document.body.appendChild(link);
+    link.click();
+
+    // Eliminar el enlace después de la descarga
+    setTimeout(function() {
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    }, 0);
+  });
+});
+
+document.getElementById('closeButton').addEventListener('click', function() {
+  document.getElementById('settingsMenu').style.width = '0px';
+} );  

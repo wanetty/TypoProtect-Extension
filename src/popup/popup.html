@@ -5,18 +5,28 @@
     <link rel="stylesheet" type="text/css" href="popup.css">
 </head>
 <body>
-    <h1>Add Trusted Domains</h1>
+    <div class="header">
+        <h1>Typosquatting Protection</h1>
+        <div class="button-group">
+            <button id="deleteButton">Delete all</button>
+            <button id="settingsButton">Settings</button>
+        </div>
+    </div>
     <div class="input-group">
-      <input type="text" id="domainInput">
-      <button id="addButton">Add</button>
+        <input type="text" id="domainInput">
+        <button id="addButton">Add</button>
     </div>
     
     <ul id="domainList">
       <!-- <li>example.com</li> --> 
     </ul>
-    
-    <button id="deleteButton">Delete all</button>
-    <button id="loadButton">Suggested Sites</button>
+
+    <div id="settingsMenu" class="side-panel">
+      <button id="loadButton">Load Suggested Sites</button>
+      <button id="importButton">Import Domains</button>
+      <button id="exportButton">Export to File</button>
+      <button id="closeButton">Close</button>
+    </div>
     <script src="popup.js"></script>
 </body>
 </html>

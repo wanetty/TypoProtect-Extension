@@ -1,90 +1,137 @@
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 20px;
-    background-color: #f4f4f4;
-    color: #333;
-    max-width: 350px;
-  }
-  
-  h1 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .input-group {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  #domainInput {
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    flex-grow: 1;
-    margin-right: 10px;
-  }
-  
-  #addButton, #deleteButton {
-    padding: 10px 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
-    background-color: #4285f4;
-    color: white;
-    cursor: pointer;
-    border: none;
-    white-space: nowrap; 
-  }
-  #deleteButton {
-    background-color: #ff0000; 
-    color: white;
-  }
-  
-  #addButton:hover, #deleteButton:hover {
-    background-color: #357ae8;
-  }
-  
-  #domainList {
-    list-style-type: none;
-    padding: 0;
-    margin-top: 10px;
-  }
-  
-  #domainList li {
-    background-color: white;
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 4px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 10px;
-  }
-  
-  #domainList li button {
-    background-color: #ff4b4b;
-    color: white;
-    border: none;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 4px;
-  }
-  
-  #domainList li button:hover {
-    background-color: #e04040;
-  }
-  
-  #loadButton {
-    font-size: 0.8em;
-    padding: 5px 10px;
-    font-weight: 300; 
-    background-color: #FFBF00;
-    color: black;
-    border: none;
-  }
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+  color: #333;
+  min-width: 200px;
+  min-height: 400px;
+}
+
+h1 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center; /* Centra el título en la página */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.button-group {
+  display: flex; /* Alinea los botones horizontalmente */
+}
+
+.button-group button {
+  margin-left: 10px; /* Espacio entre los botones */
+  padding: 10px 15px;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+}
+
+#deleteButton {
+  background-color: #ff0000;
+  color: white;
+}
+
+#settingsButton {
+  background-color: #4285f4;
+  color: white;
+}
+
+.input-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#domainInput {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+#addButton {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #4285f4;
+  color: white;
+  cursor: pointer;
+}
+
+#addButton:hover {
+  background-color: #357ae8;
+}
+
+#domainList {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+#domainList li {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 10px;
+}
+
+#domainList li button {
+  background-color: #ff4b4b;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+#domainList li button:hover {
+  background-color: #e04040;
+}
+
+.side-panel {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  overflow-x: hidden;
+  transition: 0.5s;
+  background-color: #111;
+  padding-top: 60px;
+}
+
+.side-panel button {
+  display: block;
+  color: white;
+  text-align: left;
+  border: none;
+  background-color: #111;
+  padding: 16px;
+  transition: 0.3s;
+}
+
+.side-panel button:hover {
+  background-color: #444;
+  cursor: pointer;
+}
+
+/* Asegúrate de agregar cualquier estilo adicional que puedas necesitar para otros elementos o comportamientos específicos */
