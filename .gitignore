@@ -29,6 +29,7 @@ yarn.lock
 *.crx
 *.pem
 *.zip
+*.txt
 
 
 
