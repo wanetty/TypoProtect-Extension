@@ -14,7 +14,7 @@ document.getElementById('addButton').addEventListener('click', () => {
     return;
   }
 
-  domain = url.hostname;
+  domain = extractMainDomain(url.hostname);
   if (!/^https?:\/\//i.test(domain)) {
     domain = 'https://' + domain;
   }
@@ -29,6 +29,13 @@ document.getElementById('addButton').addEventListener('click', () => {
     }
   });
 });
+
+function extractMainDomain(hostname) {
+  const parts = hostname.split('.');
+  const tld = parts.pop();
+  const domain = parts.pop();
+  return `${domain}.${tld}`;
+}
 
 //Get actual URL when open the extension and put it in the input
 chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
@@ -107,14 +114,69 @@ document.getElementById('settingsButton').addEventListener('click', function() {
 
 document.getElementById('loadButton').addEventListener('click', () => {
   const predefinedUrls = [
-    'https://www.google.com',
-    'https://www.amazon.com',
-    'https://www.youtube.com',
-    'https://www.facebook.com',
-    'https://www.instagram.com',
-    'https://www.reddit.com',
-    'https://www.tiktok.com',
-    'https://www.wikipedia.org'
+    'https://google.com',
+    'https://amazon.com',
+    'https://youtube.com',
+    'https://facebook.com',
+    'https://instagram.com',
+    'https://reddit.com',
+    'https://tiktok.com',
+    'https://wikipedia.org',
+    'https://twitter.com',
+    'https://linkedin.com',
+    'https://microsoft.com',
+    'https://apple.com',
+    'https://netflix.com',
+    'https://spotify.com',
+    'https://github.com',
+    'https://dropbox.com',
+    'https://stackoverflow.com',
+    'https://paypal.com',
+    'https://ebay.com',
+    'https://wordpress.org',
+    'https://wordpress.com',
+    'https://mozilla.org',
+    'https://adobe.com',
+    'https://slack.com',
+    'https://pinterest.com',
+    'https://zoom.us',
+    'https://bbc.com',
+    'https://nytimes.com',
+    'https://wordpress.org',
+    'https://wordpress.com',
+    'https://wordpress.org',
+    'https://stackoverflow.com',
+    'https://wordpress.com',
+    'https://wordpress.org',
+    'https://virustotal.com',
+    'https://phishtank.com',
+    'https://duckduckgo.com',
+    'https://telegram.org',
+    'https://slack.com',
+    'https://onedrive.live.com',
+    'https://bitbucket.org',
+    'https://codecademy.com',
+    'https://stackoverflow.com',
+    'https://codepen.io',
+    'https://docker.com',
+    'https://khanacademy.org',
+    'https://buy.spotify.com',
+    'https://wordpress.org',
+    'https://wordpress.com',
+    'https://mongodb.com',
+    'https://oracle.com',
+    'https://asp.net',
+    'https://hub.docker.com',
+    'https://wikimedia.org',
+    'https://fandom.com',
+    'https://discord.com',
+    'https://webflow.com',
+    'https://cloudflare.com',
+    'https://geeksforgeeks.org',
+    'https://jupyter.org',
+    'https://stackoverflow.com',
+    'https://ubuntu.com',
+    'https://w3schools.com'
   ];
 
   chrome.storage.sync.get('trustedDomains', function(result) {
@@ -156,11 +218,9 @@ document.getElementById('importButton').addEventListener('click', function() {
       });
     });
 
-    // Leer el archivo como texto
     reader.readAsText(file);
   });
 
-  // Simular un click en el input para abrir el diálogo de selección de archivo
   input.click();
 });
 
