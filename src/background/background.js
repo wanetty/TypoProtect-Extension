@@ -1,4 +1,5 @@
 const SIMILARITY_THRESHOLD = 2;
+const tabStates = {};
 
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete' && tab.url) {
@@ -30,14 +31,40 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
 
         return (levenshteinDistance <= SIMILARITY_THRESHOLD && levenshteinDistance !== 0) || hasDifferentTLD || isInSubdomain;
       });
-
       if (isTyposquatting) {
-      
         chrome.tabs.sendMessage(tabId, { type: 'danger' });
+        showDangerBadge();
+        tabStates[tabId] = true; // Almacenar el estado de typosquatting
+      } else {
+        hideDangerBadge();
+        tabStates[tabId] = false; // Actualizar el estado
       }
     });
   }
 });
+
+chrome.tabs.onActivated.addListener(activeInfo => {
+  if (tabStates[activeInfo.tabId]) {
+    showDangerBadge();
+  } else {
+    hideDangerBadge();
+  }
+});
+
+
+chrome.tabs.onRemoved.addListener(tabId => {
+  delete tabStates[tabId];
+});
+
+function showDangerBadge() {
+  chrome.action.setBadgeText({ text: '!!!' });
+  chrome.action.setBadgeBackgroundColor({ color: '#FF0000' }); // Color rojo para el badge
+}
+
+function hideDangerBadge() {
+  chrome.action.setBadgeText({ text: '' });
+}
+
 
 function calculateLevenshteinDistance(a, b) {
   a = extractDomainWithoutTLD(a);
