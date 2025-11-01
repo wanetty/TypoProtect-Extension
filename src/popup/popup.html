@@ -1,32 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Domain Settings</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TypoProtect</title>
     <link rel="stylesheet" type="text/css" href="popup.css">
 </head>
 <body>
+    <!-- Protection Status Card -->
+    <div class="protection-card">
+        <div class="protection-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L3 7V11C3 16.55 6.84 21.74 12 23C17.16 21.74 21 16.55 21 11V7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 12L11 14L15 10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </div>
+        <div class="protection-info">
+            <h2>Active Protection</h2>
+            <p id="protectionStatus">Loading...</p>
+        </div>
+        <button id="updateButton" class="icon-button" title="Update database">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast"></div>
+
+    <!-- Header -->
     <div class="header">
-        <h1>Typosquatting Protection</h1>
-        <div class="button-group">
-            <button id="deleteButton">Delete all</button>
-            <button id="settingsButton">Settings</button>
+        <h1>Trusted Domains</h1>
+        <div class="header-actions">
+            <button id="settingsButton" class="icon-button" title="Settings">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+                    <path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32l1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41m11.32-11.32l1.41-1.41" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+            <button id="deleteButton" class="icon-button danger" title="Delete all">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </button>
         </div>
     </div>
-    <div class="input-group">
-        <input type="text" id="domainInput">
-        <button id="addButton">Add</button>
+
+    <!-- Add Domain Input -->
+    <div class="input-container">
+        <input type="text" id="domainInput" placeholder="Add trusted domain...">
+        <button id="addButton">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Add
+        </button>
     </div>
     
-    <ul id="domainList">
-      <!-- <li>example.com</li> --> 
-    </ul>
+    <!-- Domain List -->
+    <ul id="domainList"></ul>
 
+    <!-- Settings Side Panel -->
     <div id="settingsMenu" class="side-panel">
-      <button id="loadButton">Load Suggested Sites</button>
-      <button id="importButton">Import Domains</button>
-      <button id="exportButton">Export to File</button>
-      <button id="closeButton">Close</button>
+        <div class="side-panel-header">
+            <h3>Settings</h3>
+            <button id="closeButton" class="icon-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+        </div>
+        <div class="side-panel-content">
+            <button id="loadButton" class="panel-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Load Suggested Sites
+            </button>
+            <button id="importButton" class="panel-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Import from File
+            </button>
+            <button id="exportButton" class="panel-button">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5-5 5 5M12 15V3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Export to File
+            </button>
+        </div>
     </div>
+
     <script src="popup.js"></script>
 </body>
 </html>

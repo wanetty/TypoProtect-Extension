@@ -1,137 +1,394 @@
-body {
-  font-family: 'Arial', sans-serif;
+/* ============================================
+   Modern Minimalist Design - TypoProtect v2.0
+   ============================================ */
+
+* {
   margin: 0;
-  padding: 20px;
-  background-color: #f4f4f4;
-  color: #333;
-  min-width: 200px;
-  min-height: 400px;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-h1 {
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
-  text-align: center; /* Centra el título en la página */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'SF Pro', system-ui, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #1a1d29 0%, #252836 100%);
+  color: #e5e7eb;
+  width: 380px;
+  min-height: 500px;
+  overflow-x: hidden;
 }
+
+/* ============================================
+   Protection Status Card
+   ============================================ */
+
+.protection-card {
+  background: rgba(16, 185, 129, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 12px;
+  padding: 20px;
+  margin: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.protection-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(16, 185, 129, 0.15);
+}
+
+.protection-icon {
+  width: 48px;
+  height: 48px;
+  background: rgba(16, 185, 129, 0.15);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #10b981;
+  flex-shrink: 0;
+}
+
+.protection-info {
+  flex: 1;
+}
+
+.protection-info h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #10b981;
+  margin-bottom: 4px;
+}
+
+.protection-info p {
+  font-size: 13px;
+  color: #9ca3af;
+  margin: 0;
+}
+
+/* ============================================
+   Header
+   ============================================ */
 
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  padding: 16px 16px 12px 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.button-group {
-  display: flex; /* Alinea los botones horizontalmente */
+.header h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #e5e7eb;
 }
 
-.button-group button {
-  margin-left: 10px; /* Espacio entre los botones */
-  padding: 10px 15px;
-  border-radius: 4px;
-  font-size: 14px;
-  cursor: pointer;
-  border: none;
-  white-space: nowrap;
-}
-
-#deleteButton {
-  background-color: #ff0000;
-  color: white;
-}
-
-#settingsButton {
-  background-color: #4285f4;
-  color: white;
-}
-
-.input-group {
+.header-actions {
   display: flex;
-  justify-content: space-between;
+  gap: 8px;
+}
+
+/* ============================================
+   Icon Buttons
+   ============================================ */
+
+.icon-button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #9ca3af;
+  cursor: pointer;
+  display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.icon-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #e5e7eb;
+  transform: scale(1.05);
+}
+
+.icon-button:active {
+  transform: scale(0.95);
+}
+
+.icon-button.danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.icon-button.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* ============================================
+   Input Container
+   ============================================ */
+
+.input-container {
+  padding: 16px;
+  display: flex;
+  gap: 8px;
 }
 
 #domainInput {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  flex: 1;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
   font-size: 14px;
-  flex-grow: 1;
-  margin-right: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+#domainInput::placeholder {
+  color: #6b7280;
+}
+
+#domainInput:focus {
+  outline: none;
+  border-color: #10b981;
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
 }
 
 #addButton {
-  padding: 10px 15px;
+  padding: 12px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 8px;
   font-size: 14px;
-  background-color: #4285f4;
+  font-weight: 500;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
   color: white;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s ease;
+  white-space: nowrap;
 }
 
 #addButton:hover {
-  background-color: #357ae8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
 }
+
+#addButton:active {
+  transform: translateY(0);
+}
+
+/* ============================================
+   Domain List
+   ============================================ */
 
 #domainList {
   list-style-type: none;
-  padding: 0;
-  margin-top: 10px;
+  padding: 0 16px 16px 16px;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+#domainList::-webkit-scrollbar {
+  width: 6px;
+}
+
+#domainList::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+#domainList::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+}
+
+#domainList::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
 }
 
 #domainList li {
-  background-color: white;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 16px;
+  border-radius: 8px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-bottom: 10px;
+  margin-bottom: 8px;
+  transition: all 0.2s ease;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#domainList li:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(16, 185, 129, 0.3);
+  transform: translateX(2px);
+}
+
+#domainList li span {
+  color: #e5e7eb;
+  font-size: 14px;
+  font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+  flex: 1;
 }
 
 #domainList li button {
-  background-color: #ff4b4b;
-  color: white;
+  width: 28px;
+  height: 28px;
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
   border: none;
+  border-radius: 6px;
   cursor: pointer;
-  padding: 5px 10px;
-  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  font-size: 16px;
+  font-weight: 600;
+  flex-shrink: 0;
 }
 
 #domainList li button:hover {
-  background-color: #e04040;
+  background: rgba(239, 68, 68, 0.2);
+  transform: scale(1.1);
 }
+
+#domainList li button:active {
+  transform: scale(0.95);
+}
+
+/* ============================================
+   Toast Notifications
+   ============================================ */
+
+.toast {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: rgba(16, 185, 129, 0.95);
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  z-index: 1000;
+  max-width: 280px;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.toast.error {
+  background: rgba(239, 68, 68, 0.95);
+}
+
+/* ============================================
+   Side Panel
+   ============================================ */
 
 .side-panel {
   position: fixed;
-  left: 0;
+  right: -100%;
   top: 0;
   height: 100%;
-  width: 0;
-  overflow-x: hidden;
-  transition: 0.5s;
-  background-color: #111;
-  padding-top: 60px;
+  width: 100%;
+  background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+  transition: right 0.3s ease;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
 }
 
-.side-panel button {
-  display: block;
-  color: white;
-  text-align: left;
-  border: none;
-  background-color: #111;
-  padding: 16px;
-  transition: 0.3s;
+.side-panel.open {
+  right: 0;
 }
 
-.side-panel button:hover {
-  background-color: #444;
+.side-panel-header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.side-panel-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #e5e7eb;
+  margin: 0;
+}
+
+.side-panel-content {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panel-button {
+  width: 100%;
+  padding: 14px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #e5e7eb;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+  text-align: left;
 }
 
-/* Asegúrate de agregar cualquier estilo adicional que puedas necesitar para otros elementos o comportamientos específicos */
+.panel-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+  transform: translateX(4px);
+}
+
+.panel-button svg {
+  color: #10b981;
+  flex-shrink: 0;
+}
