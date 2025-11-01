@@ -2,7 +2,9 @@
 
 <p align="center"><img width=250 alt="Logo" src="https://github.com/wanetty/TypoProtect-Extension/blob/main/static/logo.png"></p>
 
-Advanced protection against phishing, typosquatting and homograph attacks with automatically updated database. Compatible with Chrome (Manifest V3) and Firefox (Manifest V2).
+TypoProtect is an advanced browser security extension that protects you from phishing attacks, typosquatting, domain spoofing, and homograph attacks. Featuring real-time malicious domain blocking with daily updated threat database from OpenPhish, multi-level detection (blacklist, homoglyph, and typosquatting analysis), and ultra-fast Bloom Filter technology. Compatible with Chrome, Edge, Brave (Manifest V3) and Firefox (Manifest V2).
+
+**Protect your browsing with automatic threat detection, customizable trusted domain lists, and instant security alerts. Free, open-source, and privacy-focused.**
 
 ## Key Features
 
