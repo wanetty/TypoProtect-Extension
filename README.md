@@ -95,13 +95,12 @@ Sigue este [link](https://chromewebstore.google.com/detail/typosquatting-protect
 
 ## Screenshots
 
-### Previous Version (v1.x)
+### Version (v2.0)
 ![Board](static/board.png)
 ![Settings Menu](static/settings.png)
 ![Example](static/example.png)
 
-### New Version (v2.0)
-_Screenshots coming soon_
+
 
 ## Contributing
 
