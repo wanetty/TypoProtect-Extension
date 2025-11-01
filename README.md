@@ -2,29 +2,29 @@
 
 <p align="center"><img width=250 alt="Logo" src="https://github.com/wanetty/TypoProtect-Extension/blob/main/static/logo.png"></p>
 
-Protección avanzada contra phishing, typosquatting y ataques homógrafos con base de datos actualizada automáticamente. Compatible con Chrome (Manifest V3) y Firefox (Manifest V2).
+Advanced protection against phishing, typosquatting and homograph attacks with automatically updated database. Compatible with Chrome (Manifest V3) and Firefox (Manifest V2).
 
-## ✨ Características Principales
+## Key Features
 
-### 🛡️ Protección Multi-Nivel
-- **Base de datos de phishing**: Integración con OpenPhish para bloquear dominios maliciosos conocidos
-- **Detección de typosquatting**: Identifica dominios similares a tus sitios de confianza
-- **Detección de homóglifos**: Reconoce caracteres Unicode sospechosos y ataques IDN/punycode
-- **Actualización automática**: Base de datos actualizada cada 24 horas automáticamente
+### Multi-Level Protection
+- **Phishing database**: Integration with OpenPhish to block known malicious domains
+- **Typosquatting detection**: Identifies domains similar to your trusted sites
+- **Homoglyph detection**: Recognizes suspicious Unicode characters and IDN/punycode attacks
+- **Automatic updates**: Database updated every 24 hours automatically
 
-### 🎨 Interfaz Moderna
-- **Diseño minimalista**: UI completamente rediseñada con estilo moderno y oscuro
-- **Dashboard de protección**: Visualiza el estado de protección y cantidad de dominios bloqueados
-- **Notificaciones toast**: Feedback visual claro para todas las acciones
-- **Animaciones suaves**: Transiciones y animaciones fluidas para mejor UX
+### Modern Interface
+- **Minimalist design**: Completely redesigned UI with modern dark style
+- **Protection dashboard**: Displays protection status and number of blocked domains
+- **Toast notifications**: Clear visual feedback for all actions
+- **Smooth animations**: Fluid transitions and animations for better UX
 
-### ⚡ Rendimiento Optimizado
-- **Bloom Filter**: Búsquedas ultrarrápidas con mínima huella de memoria
-- **Funcionamiento offline**: Lista inicial empaquetada para protección sin conexión
-- **Almacenamiento eficiente**: Optimizado para manejar grandes bases de datos
+### Optimized Performance
+- **Bloom Filter**: Ultra-fast searches with minimal memory footprint
+- **Offline operation**: Initial list bundled for protection without connection
+- **Efficient storage**: Optimized to handle large databases
 
 
-## 🏗️ Arquitectura
+## Architecture
 
 La extensión consta de tres componentes principales:
 
@@ -70,20 +70,20 @@ Sigue este [link](https://chromewebstore.google.com/detail/typosquatting-protect
 3. Click en "Cargar complemento temporal"
 4. Navega a `manifest_firefox/` y selecciona `manifest.json`
 
-## 🚀 Uso
+## Usage
 
-1. **Primera vez**: La extensión descargará automáticamente la base de datos de phishing de OpenPhish
-2. **Añadir sitios de confianza**: Click en el icono de la extensión y añade dominios que quieras proteger contra typosquatting
-3. **Actualización manual**: Click en el botón ↻ en el dashboard para actualizar la base de datos
-4. **Navegación protegida**: La extensión trabajará en segundo plano bloqueando amenazas automáticamente
+1. **First time**: The extension will automatically download the OpenPhish phishing database
+2. **Add trusted sites**: Click on the extension icon and add domains you want to protect against typosquatting
+3. **Manual update**: Click the ↻ button on the dashboard to update the database
+4. **Protected browsing**: The extension will work in the background blocking threats automatically
 
-## 🔄 Actualizaciones
+## Updates
 
-- **Automáticas**: La base de datos se actualiza cada 24 horas automáticamente
-- **Manual**: Usa el botón de actualización en el popup para forzar una actualización inmediata
-- **Fuente de datos**: [OpenPhish Community Feed](https://openphish.com/phishing_feeds.html) (actualizado cada 12 horas)
+- **Automatic**: The database updates every 24 hours automatically
+- **Manual**: Use the update button in the popup to force an immediate update
+- **Data source**: [OpenPhish Community Feed](https://openphish.com/phishing_feeds.html) (updated every 12 hours)
 
-## 🛠️ Tecnologías Utilizadas
+## Technologies Used
 
 - **Bloom Filter**: Implementación nativa en JavaScript para búsquedas probabilísticas eficientes
 - **Chrome Extensions API**: Manifest V3 (Chrome) y V2 (Firefox)
@@ -91,52 +91,52 @@ Sigue este [link](https://chromewebstore.google.com/detail/typosquatting-protect
 - **Modern CSS**: Glassmorphism, backdrop-filter, animaciones CSS3
 - **Local Storage**: `chrome.storage.local` para bases de datos grandes
 
-## 📊 Capturas de Pantalla
+## Screenshots
 
-### Versión Anterior (v1.x)
+### Previous Version (v1.x)
 ![Board](static/board.png)
 ![Settings Menu](static/settings.png)
 ![Example](static/example.png)
 
-### Nueva Versión (v2.0)
-_Capturas de pantalla actualizadas próximamente_
+### New Version (v2.0)
+_Screenshots coming soon_
 
-## 🤝 Contribuir
+## Contributing
 
-¡Las contribuciones son bienvenidas! Si encuentras un bug o tienes una sugerencia:
+Contributions are welcome! If you find a bug or have a suggestion:
 
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add some AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
+1. Fork the repository
+2. Create a branch for your feature (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## 📝 Changelog
+## Changelog
 
-### v2.0.0 (Noviembre 2025)
-- ✨ **Nueva**: Integración con OpenPhish para bloqueo de dominios maliciosos reales
-- ✨ **Nueva**: Detección de homóglifos y ataques IDN/punycode
-- ✨ **Nueva**: Sistema de actualización automática diaria
-- ✨ **Nueva**: Bloom Filter para búsquedas ultrarrápidas
-- 🎨 **Mejorada**: UI completamente rediseñada con diseño minimalista moderno
-- 🎨 **Mejorada**: Banner de advertencia con animaciones y mejor UX
-- ⚡ **Mejorada**: Detección multinivel (blacklist + typosquatting + homóglifos)
-- 🔧 **Mejorada**: Sistema de notificaciones toast para feedback del usuario
+### v2.0.0 (November 2025)
+- **New**: Integration with OpenPhish for real malicious domain blocking
+- **New**: Homoglyph and IDN/punycode attack detection
+- **New**: Daily automatic update system
+- **New**: Bloom Filter for ultra-fast searches
+- **Improved**: Completely redesigned UI with modern minimalist design
+- **Improved**: Warning banner with animations and better UX
+- **Improved**: Multi-level detection (blacklist + typosquatting + homoglyphs)
+- **Improved**: Toast notification system for user feedback
 
-### v1.1.x (Anterior)
-- Detección básica de typosquatting
-- Gestión de dominios de confianza
-- UI básica
+### v1.1.x (Previous)
+- Basic typosquatting detection
+- Trusted domain management
+- Basic UI
 
-## 📄 Licencia
+## License
 
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE.md](LICENSE.md) para más detalles.
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
 
-## 🙏 Agradecimientos
+## Acknowledgments
 
-- [OpenPhish](https://openphish.com/) por proporcionar el feed comunitario gratuito
-- Comunidad de seguridad por reportar sitios de phishing
+- [OpenPhish](https://openphish.com/) for providing the free community feed
+- Security community for reporting phishing sites
 
 ---
 
-**Desarrollado con ❤️ para hacer Internet más seguro**
+**Developed to make the Internet safer**
